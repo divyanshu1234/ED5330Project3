@@ -1,8 +1,8 @@
 clear all;
 
-ctr_type = 'p';
+ctr_type = 'pi';
 is_act_present = 1;
-u = 10;
+u = 2.5;
 
 beta_deg = 53.77;
 beta_rad = deg2rad(beta_deg);
@@ -32,5 +32,5 @@ op_tr_fn = G_s * H_s;
 
 rlocus(op_tr_fn);
 % title('')
-hold on;
-plot([0 -100], [0 100*tan(beta_rad)], 'black', [0 -100], [0 -100*tan(beta_rad)], 'black');
+% hold on;
+% plot([0 -100], [0 100*tan(beta_rad)], 'black', [0 -100], [0 -100*tan(beta_rad)], 'black');

@@ -1,12 +1,13 @@
 clear all;
 
 ctr_type = 'pi';
-is_act_present = 1;
-u = 2.5;
+is_act_present = 0;
+u = 10;
+plot_ctrl_output = 1;
 
 % u = 2.5
 % unactuated - 12, 0.01
-% actuated   -  7, 0.01
+% actuated   - 11, 0.01
 
 % u = 5
 % unactuated - 2.5, 0.01
@@ -18,11 +19,11 @@ u = 2.5;
 
 switch ctr_type
     case 'p'
-        Kp = 7;
+        Kp = 1.1;
         Ki = 0;
         title_str = 'P Controller';
     case 'pi'
-        Kp = 7;
+        Kp = 1.1;
         Ki = Kp * 0.01;
         title_str = 'PI Controller';
 end
@@ -50,6 +51,11 @@ t = 0:0.01:5;
 in_step = zeros(1, length(t));
 in_step(find(abs(t-1)<=0.001):end) = thetaD_rad;
 
-y = plot_response(1, title_str, 'Desired Angle', 'Heading Angle', cl_tr_fn, in_step, t);
+y = plot_response(1, title_str, 'Desired Angle \theta_D (t)', 'Heading Angle \theta (t)', cl_tr_fn, in_step, t);
 
 disp((max(y) - y(end-10)) / y(end-10) * 100);
+
+if plot_ctrl_output
+    U_by_R = C_s / (1 + G_s*H_s);
+    plot_response(2, title_str, 'Desired Angle \theta_D (t)', 'Steering Angle \delta (t)', U_by_R, in_step, t);
+end
